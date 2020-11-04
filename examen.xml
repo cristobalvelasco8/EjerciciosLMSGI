@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE futbol SYSTEM "examen.dtd">
+<futbol>
+	Real Madrid
+	<futbolista nombre="Sergio" amigode="Courtois" />
+	<futbolista nombre="Lucas" compañero="Benzema" />
+	<futbolista nombre="Benzema" compañero="Lucas" />
+	<futbolista nombre="Courtois" rol="portero" />
+	<partido>
+		<equipo>Barcelona</equipo>
+		<campo lugar="Madrid" />
+		<puntuacion>
+			<valoracion>Una web que le da un 9</valoracion>
+			<valoracion>Una web que le da un 10</valoracion>
+		</puntuacion>
+	</partido>
+	<partido>
+		<equipo>Malaga - &madrid;</equipo>
+		<posicion lugar="Delantero" />
+		<puntuacion>
+			<valoracion>Una web que le da un 9</valoracion>
+			<valoracion>Una web que le da un 10</valoracion>
+		</puntuacion>
+	</partido>
+</futbol>

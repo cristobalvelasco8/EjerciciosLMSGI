@@ -1,0 +1,16 @@
+<!ELEMENT futbol (#PCDATA |futbolista| partido)*>
+<!ENTITY % atributoLugar "lugar (Madrid | Delantero | Japon) 'Madrid'">
+<!ELEMENT futbolista EMPTY>
+<!ATTLIST futbolista nombre ID #REQUIRED>
+<!ATTLIST futbolista compañero IDREF #IMPLIED>
+<!ATTLIST futbolista amigode IDREFS #IMPLIED>
+<!ATTLIST futbolista rol CDATA #FIXED "portero">
+<!ELEMENT partido (equipo, (campo | posicion ), puntuacion?)>
+<!ELEMENT equipo (#PCDATA)>
+<!ELEMENT puntuacion (valoracion+)>
+<!ELEMENT valoracion (#PCDATA)>
+<!ELEMENT campo EMPTY>
+<!ATTLIST campo %atributoLugar;>
+<!ELEMENT posicion EMPTY>
+<!ATTLIST posicion %atributoLugar;>
+<!ENTITY madrid "Un lugar precioso">
