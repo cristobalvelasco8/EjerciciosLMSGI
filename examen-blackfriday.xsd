@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:complexType name="ofertasBlackFriday"></xs:complexType>
+    <xs:element name="ofertasBlackFriday">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="articulo" type="tipoArticulo" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="tipoArticulo" mixed="true">
+        <xs:all>
+            <xs:element name="fabricante" type="tipoFabricante"></xs:element>
+            <xs:element name="oferta" type="tipoOferta"></xs:element>
+            <xs:element name="valoraciones" type="tipoValoraciones"></xs:element>
+            <xs:element name="preguntas" type="tipoPreguntas"></xs:element>
+            <xs:element name="agregadoACestaDeCompra" type="tipoAgregado"></xs:element>
+        </xs:all>
+        <xs:attribute name="codigo" />
+    </xs:complexType>
+    <xs:complexType name="tipoPreguntas">
+        <xs:all>
+            <xs:element name="pregunta">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="tipoValoracion">
+                            <xs:sequence>
+                                <xs:element name="respuestas" type="tipoRespuestas"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:all>
+    </xs:complexType>
+    <xs:complexType name="tipoRespuestas">
+        <xs:sequence>
+            <xs:element name="respuesta"> 
+                <xs:complexType mixed="true">
+                    <xs:all>
+                        <xs:element name="votantesEnPositivo" type="tipoVotantes"/>
+                        <xs:element name="votantesEnNegativo" type="tipoVotantes"/>
+                    </xs:all>
+                    <xs:attribute name="autor"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="tipoVotantes">
+        <xs:list itemType="tipoNombres"></xs:list>
+    </xs:simpleType>
+    <xs:complexType name="tipoFabricante">
+        <xs:choice>
+            <xs:element name="canon" type="tipoVacio" />
+            <xs:element name="epson" type="tipoVacio" />
+            <xs:element name="samsung" type="tipoVacio" />
+            <xs:element name="apple" type="tipoVacio" />
+            <xs:element name="philips" type="tipoVacio" />
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="tipoOferta" mixed="true">
+        <xs:attribute name="precioHabitual" type="tipoMin1Caracter" />
+        <xs:attribute name="descuento" type="tipoPorcentaje" />
+    </xs:complexType>
+
+    <xs:simpleType name="tipoMin1Caracter">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="tipoPorcentaje">
+        <xs:restriction base="tipoMin1Caracter">
+            <xs:pattern value="\d{1,2}%"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="tipoValoraciones">
+        <xs:sequence>
+            <xs:element name="positiva" type="tipoValoracion" />
+            <xs:element name="negativa" type="tipoValoracion" />
+            <xs:element name="masVotada" type="tipoMasVotada" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="tipoValoracion">
+        <xs:sequence>
+            <xs:element name="autor" type="tipomixto" />
+            <xs:element name="texto" type="tipomixto" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="tipomixto" mixed="true" />
+    <xs:complexType name="tipoMasVotada">
+        <xs:complexContent>
+            <xs:extension base="tipoValoracion">
+                <xs:sequence>
+                    <xs:element name="fecha" type="tipoFecha" />
+                </xs:sequence>
+                <xs:attribute name="votosFavorables" />
+                <xs:attribute name="votosDesfavorables" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="tipoFecha">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{1,2}/\d{1,2}/\d{4} \d{1,2}:\d{1,2}:\d{2}\s((AM)|(PM))" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="tipopreguntas">
+        <xs:all>
+            <xs:element name="preguntas" />
+        </xs:all>
+    </xs:complexType>
+    <xs:simpleType name="tipoNombres">
+        <xs:union memberTypes="nombres-masc nombres-fem" />
+    </xs:simpleType>
+    <xs:simpleType name="nombres-masc">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Javier" />
+            <xs:enumeration value="Pablo" />
+            <xs:enumeration value="Pedro" />
+            <xs:enumeration value="Álvaro" />
+            <xs:enumeration value="Gonzalo" />
+            <xs:enumeration value="Juan" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nombres-fem">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Carmen" />
+            <xs:enumeration value="Araceli" />
+            <xs:enumeration value="Lucía" />
+            <xs:enumeration value="Silvia" />
+            <xs:enumeration value="Inma" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="tipoVacio" />
+    <xs:complexType name="tipoAgregado" mixed="true">
+        <xs:attribute name="value"></xs:attribute>
+    </xs:complexType>
+</xs:schema>
